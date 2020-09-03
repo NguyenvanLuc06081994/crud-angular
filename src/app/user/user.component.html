@@ -1,0 +1,105 @@
+<div class="container">
+<input type="text" class="text-body" (keyup)="search($event)" placeholder="search">
+
+
+<table class="table table-hover">
+
+  <thead class="badge-dark">
+  <tr>
+    <th scope="col">STT</th>
+    <th scope="col">Name</th>
+    <th scope="col">Phone</th>
+    <th scope="col" [hidden]="hidden">Email</th>
+    <th scope="col">Address</th>
+    <th scope="col" colspan="2">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let user of result; let i = index" id="user-{{i}}">
+    <th scope="row">{{i+1}}</th>
+    <td>{{user.name}}</td>
+    <td>{{user.phone}}</td>
+    <td [hidden]="hidden">{{user.email}}</td>
+    <td>{{user.address}}</td>
+    <td><button type="button" class="btn btn-primary" (click)="edit(i)" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="remove(i)">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-success" (click)="showHideEmail()">Show/Hide Email</button>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">ADD</button>
+
+</div>
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary" >-->
+<!--  Launch demo modal-->
+<!--</button>-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text"  [(ngModel)]="newId" >
+        <input type="text"  [(ngModel)]="newName">
+        <input type="text"  [(ngModel)]="newPhone">
+        <input type="text" [(ngModel)]="newEmail">
+        <input type="text" [(ngModel)]="newAddress">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="update(index)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addtitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>User id</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="newId" placeholder="1">
+        </div>
+        <div class="form-group">
+          <label >User Name</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="newName" placeholder="cuong">
+        </div>
+        <div class="form-group">
+          <label >User phone</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="newPhone" placeholder="113">
+        </div>
+        <div class="form-group">
+          <label >User email</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="newEmail" placeholder="duong@gmail.com">
+        </div>
+        <div class="form-group">
+          <label >User address</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="newAddress" placeholder="bac giang">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
