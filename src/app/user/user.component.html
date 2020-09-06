@@ -1,8 +1,14 @@
+<app-menu></app-menu>
 <div class="container">
-<input type="text" class="text-body" (keyup)="search($event)" placeholder="search">
+<app-message [note]="message"></app-message>
 
+<app-input-search (keyword)="search($event)"></app-input-search>
+  <select name="" id="">
+    <option value=""></option>
+    <option value=""></option>
+  </select>
 
-<table class="table table-hover">
+<table class="table table-hover" >
 
   <thead class="badge-dark">
   <tr>
@@ -16,22 +22,28 @@
   </thead>
   <tbody>
 
-  <tr *ngFor="let user of result; let i = index" id="user-{{i}}">
+  <tr *ngFor="let user of result | paginate: { itemsPerPage: 2, currentPage: p }; let i = index" id="user-{{i}}">
     <th scope="row">{{i+1}}</th>
     <td>{{user.name}}</td>
     <td>{{user.phone}}</td>
     <td [hidden]="hidden">{{user.email}}</td>
     <td>{{user.address}}</td>
-    <td><button type="button" class="btn btn-primary" (click)="edit(i)" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
-    <td><button type="button" class="btn btn-danger" (click)="remove(i)">Delete</button></td>
+    <td><button type="button" class="btn btn-primary" (click)="edit(user.id)" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="remove(user.id)">Delete</button></td>
   </tr>
   </tbody>
 </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+<!--  <ul>-->
+<!--    <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>-->
+<!--  </ul>-->
+
+<!--  <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
 
 <button type="button" class="btn btn-success" (click)="showHideEmail()">Show/Hide Email</button>
 
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">ADD</button>
-
+  <app-template-driven-form></app-template-driven-form>
 </div>
 <!-- Button trigger modal -->
 <!--<button type="button" class="btn btn-primary" >-->
@@ -100,6 +112,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 

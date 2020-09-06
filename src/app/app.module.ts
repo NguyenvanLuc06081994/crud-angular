@@ -1,20 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
+import { InputSearchComponent } from './input-search/input-search.component';
+import { MessageComponent } from './message/message.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { MenuComponent } from './menu/menu.component';
+import { TemplateDrivenFormComponent } from './template-driven-form/template-driven-form.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    InputSearchComponent,
+    MessageComponent,
+    MenuComponent,
+    TemplateDrivenFormComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
