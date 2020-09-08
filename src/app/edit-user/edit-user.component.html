@@ -1,0 +1,35 @@
+<form action="" [formGroup]="formEditUser" (ngSubmit)="edit()">
+  <div class="modal-body">
+    <div class="form-group">
+      <label>User id</label>
+      <input type="text" class="form-control"  formControlName="id">
+    </div>
+    <div class="form-group">
+      <label >User Name</label>
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+    <div class="form-group">
+      <label >User phone</label>
+      <input type="text" class="form-control" formControlName="phone">
+    </div>
+    <div class="form-group">
+      <label >User email</label>
+      <input type="email" class="form-control" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label >User address</label>
+      <input type="text" class="form-control" formControlName="address">
+    </div>
+    <div class="form-group">
+      <label >User role</label>
+      <select formControlName="role_id" id="">
+        <option value="">Select</option>
+        <option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
+      </select>
+
+    </div>
+  </div>
+  <button class="btn btn-secondary" routerLink="/users">Close</button>
+  <button class="btn btn-primary">Edit</button>
+
+</form>

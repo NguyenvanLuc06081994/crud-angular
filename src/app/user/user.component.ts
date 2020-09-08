@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, EventEmitter} from '@angular/core';
 import {IUser} from '../iuser';
+import {UserService} from '../services/user.service';
+import {RoleService} from '../services/role.service';
 
 @Component({
   selector: 'app-user',
@@ -7,73 +9,19 @@ import {IUser} from '../iuser';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  p = 1;
   hidden = true;
+  users = [];
+  roles = [];
   message: string;
-  result: IUser[] = [];
-  index: number;
-  users: IUser[] = [{
-    id: 1,
-    name: 'DuongCC',
-    phone: 113,
-    email: 'duong@gmail.com',
-    address: 'em o bac giang'
-  },
-    {
-      id: 2,
-      name: 'DuongCC Bac Giang',
-      phone: 114,
-      email: 'duongsida@gmail.com',
-      address: 'em o bac giang'
-    },
-    {
-      id: 3,
-      name: 'DuongCC dau troc',
-      phone: 115,
-      email: 'duongxike@gmail.com',
-      address: 'em o bac giang'
-    },
-    {
-      id: 4,
-      name: 'Duong so vo',
-      phone: 116,
-      email: 'duongJapan@gmail.com',
-      address: 'em o bac giang'
-    },
-    {
-      id: 5,
-      name: 'DuongCC japan',
-      phone: 117,
-      email: 'duong123@gmail.com',
-      address: 'em o bac giang'
-    }, {
-      id: 6,
-      name: 'DuongCC choc ngoay',
-      phone: 911,
-      email: 'duongchocngoay12@gmail.com',
-      address: 'em o bac giang'
-    }
-  ];
-  newId: number;
-  newName: string;
-  newPhone: number;
-  newEmail: string;
-  newAddress: string;
-  user: IUser[] = [
-    {
-      id: this.newId,
-      name: this.newName,
-      phone: this.newPhone,
-      email: this.newEmail,
-      address: this.newAddress
-    }
-  ];
 
-  constructor() {
+  constructor(private userService: UserService,
+              private roleService: RoleService) {
   }
 
   ngOnInit(): void {
-    this.result = this.users;
+    this.users = this.userService.getAll();
+    this.roles = this.roleService.getAll();
+    // console.log(this.roles);
   }
 
   // tslint:disable-next-line:typedef
@@ -85,13 +33,13 @@ export class UserComponent implements OnInit {
   search(event) {
     console.log(event);
     // console.log(this.filterUSer(event));
-    this.result = (event) ? this.filterUSer(event) : this.users;
+    this.users = (event) ? this.filterUSer(event) : this.userService.getAll();
 
   }
 
   // tslint:disable-next-line:typedef
   filterUSer(keyword) {
-    return this.users.filter(user => {
+    return this.userService.getAll().filter(user => {
       // tslint:disable-next-line:triple-equals
       return user.name.toLowerCase().indexOf(keyword) != -1;
     });
@@ -99,62 +47,12 @@ export class UserComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   remove(id) {
+    console.log(id);
     if (confirm('are you sure???')) {
-      this.users.splice((id - 1), 1);
+      this.userService.remove(id);
       this.message = 'Xoa Thanh Cong!!!';
     }
   }
 
 
-  // tslint:disable-next-line:typedef
-  edit(id) {
-    // @ts-ignore
-    this.newId = this.users[id].id;
-    this.newName = this.users[id].name;
-    this.newPhone = this.users[id].phone;
-    this.newEmail = this.users[id].email;
-    this.newAddress = this.users[id].address;
-    // this.user = this.users[id];
-    this.index = id;
-
-  }
-
-  // tslint:disable-next-line:typedef
-  update(id) {
-    // @ts-ignore
-    console.log(id);
-    // @ts-ignore
-    this.user = this.users[id];
-    // @ts-ignore
-    this.user.id = this.newId;
-    // @ts-ignore
-    this.user.name = this.newName;
-    // @ts-ignore
-    this.user.phone = this.newPhone;
-    // @ts-ignore
-    this.user.email = this.newEmail;
-    // @ts-ignore
-    this.user.address = this.newAddress;
-    console.log(this.user);
-
-  }
-
-  // tslint:disable-next-line:typedef
-  add() {
-    // @ts-ignore
-    this.users.unshift(
-      {
-        id: this.newId,
-        name: this.newName,
-        phone: this.newPhone,
-        email: this.newEmail,
-        address: this.newAddress
-      }
-    );
-    this.newId = Number('');
-    this.newName = '';
-    this.newPhone = Number('');
-    this.newEmail = '';
-    this.newAddress = '';
-  }
 }

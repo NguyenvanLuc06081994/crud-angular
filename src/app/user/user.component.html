@@ -1,4 +1,4 @@
-<app-menu></app-menu>
+
 
 <div class="container">
 <app-message [note]="message"></app-message>
@@ -18,103 +18,37 @@
     <th scope="col">Phone</th>
     <th scope="col" [hidden]="hidden">Email</th>
     <th scope="col">Address</th>
+    <th scope="col">Role</th>
     <th scope="col" colspan="2">Action</th>
   </tr>
   </thead>
   <tbody>
 
-  <tr *ngFor="let user of result | paginate: { itemsPerPage: 2, currentPage: p }; let i = index" id="user-{{i}}">
+  <tr *ngFor="let user of users ; let i = index" id="user-{{i}}">
     <th scope="row">{{i+1}}</th>
     <td>{{user.name}}</td>
     <td>{{user.phone}}</td>
     <td [hidden]="hidden">{{user.email}}</td>
     <td>{{user.address}}</td>
-    <td><button type="button" class="btn btn-primary" (click)="edit(user.id)" data-toggle="modal" data-target="#exampleModal">Edit</button></td>
+    <ng-container *ngFor="let role of roles">
+      <td *ngIf="role.id == user.role_id">{{role.name}}</td>
+    </ng-container>
+
+    <td><a type="button" class="btn btn-primary" [routerLink]="[user.id,'edit']">Edit</a></td>
     <td><button type="button" class="btn btn-danger" (click)="remove(user.id)">Delete</button></td>
   </tr>
   </tbody>
 </table>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-<!--  <ul>-->
-<!--    <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }"> ... </li>-->
-<!--  </ul>-->
-
 <!--  <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
 
 <button type="button" class="btn btn-success" (click)="showHideEmail()">Show/Hide Email</button>
+<!--  data-toggle="modal" data-target="#add"-->
+  <a type="button" class="btn btn-primary" [routerLink]="['add']">ADD</a>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">ADD</button>
-  <app-template-driven-form></app-template-driven-form>
-  <app-register></app-register>
+<!--  <app-template-driven-form></app-template-driven-form>-->
+<!--  <app-register></app-register>-->
 </div>
-<!-- Button trigger modal -->
-<!--<button type="button" class="btn btn-primary" >-->
-<!--  Launch demo modal-->
-<!--</button>-->
+{{roles | json}}
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input type="text"  [(ngModel)]="newId" >
-        <input type="text"  [(ngModel)]="newName">
-        <input type="text"  [(ngModel)]="newPhone">
-        <input type="text" [(ngModel)]="newEmail">
-        <input type="text" [(ngModel)]="newAddress">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="update(index)">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addtitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>User id</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="newId" placeholder="1">
-        </div>
-        <div class="form-group">
-          <label >User Name</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="newName" placeholder="cuong">
-        </div>
-        <div class="form-group">
-          <label >User phone</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="newPhone" placeholder="113">
-        </div>
-        <div class="form-group">
-          <label >User email</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="newEmail" placeholder="duong@gmail.com">
-        </div>
-        <div class="form-group">
-          <label >User address</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="newAddress" placeholder="bac giang">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="add()">Save changes</button>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 

@@ -4,4 +4,5 @@ export interface IUser {
   phone: number;
   email: string;
   address: string;
+  role_id: number;
 }

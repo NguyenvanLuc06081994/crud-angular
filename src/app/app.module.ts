@@ -10,6 +10,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MenuComponent } from './menu/menu.component';
 import { TemplateDrivenFormComponent } from './template-driven-form/template-driven-form.component';
 import { RegisterComponent } from './register/register.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import {UserService} from './services/user.service';
+
 
 @NgModule({
   declarations: [
@@ -19,16 +23,17 @@ import { RegisterComponent } from './register/register.component';
     MessageComponent,
     MenuComponent,
     TemplateDrivenFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditUserComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
-    ReactiveFormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ReactiveFormsModule],
+    providers: [UserService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
