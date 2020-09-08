@@ -81,4 +81,8 @@ export class UserService {
       }
     }
   }
+  // tslint:disable-next-line:typedef
+  edit(id: number): IUser {
+    return this.getUserById(id);
+  }
 }

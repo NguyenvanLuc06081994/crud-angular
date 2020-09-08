@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RoleService} from '../services/role.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
@@ -16,6 +16,7 @@ export class EditUserComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
+              private router: Router,
               private roleService: RoleService,
               private fb: FormBuilder) {
   }
@@ -34,4 +35,14 @@ export class EditUserComponent implements OnInit {
     console.log(user);
   }
 
+  // tslint:disable-next-line:typedef
+  edit() {
+    for (let i = 0; i < this.userService.users.length; i++) {
+      // tslint:disable-next-line:triple-equals
+      if (this.userService.users[i].id == this.id) {
+        this.userService.users[i] = this.formEditUser.value;
+      }
+    }
+    this.router.navigate(['/users']);
+  }
 }
